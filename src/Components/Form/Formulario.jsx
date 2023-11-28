@@ -22,6 +22,7 @@ const Formulario = () => {
     //const [PasswordValido,setPasswordValido] = useState(false)
     const [PasswordCampo,setPasswordCampo] = useState(false)
     const [mostrarPassword,setMostrarPassword] = useState(false)
+    const [passwordCheck,setPasswordCheck] = useState(false)
    
     const [PasswordCampoCopia,setPasswordCampoCopia] = useState(false)
     const [mostrarPasswordCopia,setMostrarPasswordCopia] = useState(false)
@@ -33,8 +34,14 @@ const Formulario = () => {
     }
     
     function validarPassword(event){
-      setPassword(event)     
+      setPassword(event.target.value)     
       event.target.value.length<3?setPasswordCampo(true):setPasswordCampo(false)
+    }
+
+    function validarPasswordCopia(event){
+      setPasswordCopia(event.target.value)     
+      event.target.value.length<3?setPasswordCampoCopia(true):setPasswordCampoCopia(false)
+      setPasswordCheck(false)
     }
 
     function enviarPasswordCopia(event){
@@ -42,11 +49,6 @@ const Formulario = () => {
       setMostrarPasswordCopia(!mostrarPasswordCopia)     
     }
     
-    function validarPasswordCopia(event){
-      setPasswordCopia(event)     
-      event.target.value.length<3?setPasswordCampoCopia(true):setPasswordCampoCopia(false)
-    }
-
     function validarNombre(event){
         setNombre(event.target.value)
         console.log(nombre)
@@ -78,6 +80,14 @@ const Formulario = () => {
       if (email === '' )    { setEmailValido(false) }
       if (password === '' ) { setPasswordCampo(true) }
       if (passwordCopia === '' ) { setPasswordCampoCopia(true) }
+         if ( PasswordCampo === false && PasswordCampoCopia === false) {
+               if (password !== passwordCopia) { 
+                  setPasswordCheck(true)
+                  //setPasswordCampoCopia(false) 
+                  console.log(password)
+                  console.log(passwordCopia)
+               }
+         }
            
       if (nombre && apellido && telefono && email && password && passwordCopia) {
            setMostrarDatos(true)
@@ -114,6 +124,7 @@ const Formulario = () => {
       <input className="divText" onChange={validarPasswordCopia} type={mostrarPasswordCopia?"text":"password"} />
       <button onClick={enviarPasswordCopia}>{mostrarPasswordCopia?' Ocultar':'Mostrar'} pasword</button>
       { PasswordCampoCopia && <div id="muestra">Debe contener al menos 3 caracteres</div> }
+      { passwordCheck && <div id="muestra">Las password no son iguales</div> }
      </div>
          
      <div>
