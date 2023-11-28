@@ -83,9 +83,6 @@ const Formulario = () => {
          if ( PasswordCampo === false && PasswordCampoCopia === false) {
                if (password !== passwordCopia) { 
                   setPasswordCheck(true)
-                  //setPasswordCampoCopia(false) 
-                  console.log(password)
-                  console.log(passwordCopia)
                }
          }
            
